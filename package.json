@@ -1,0 +1,9 @@
+{
+  "name": "arch-diag-scratch-public",
+  "version": "1.0.0",
+  "description": "A test repo for arch diagram stuff",
+  "main": "index.js",
+  "author": "CodeSee",
+  "license": "Unlicensed",
+  "private": true
+}
