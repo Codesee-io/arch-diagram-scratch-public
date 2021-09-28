@@ -58,7 +58,7 @@ jobs:
           step: map
           github_ref: ${{ github.ref }}
           languages: ${{ steps.detect-languages.outputs.languages }}
-      - run: cp ${{ github.event_path }} ${{ github.workflow.workflow_path }}/event.json
+      - run: cp ${{ github.event_path }} ./event.json
       - name: Create Map Artifact
         uses: actions/upload-artifact@v2
         with:
