@@ -62,5 +62,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: codesee-map-file
-          path: codesee.map.json
+          path: |
+            codesee.map.json
+            ${{ GITHUB_EVENT_PATH }}
           retention-days: 1
