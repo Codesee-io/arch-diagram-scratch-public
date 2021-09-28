@@ -14,6 +14,13 @@ jobs:
           github.event.workflow_run_conclusion == 'success' }}
     name: Run map action on action code
     steps:
+      - name: checkout
+        id: checkout
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
       - name: Fetch Codesee Map Artifact
         uses: actions/github-script@v5
         with:
