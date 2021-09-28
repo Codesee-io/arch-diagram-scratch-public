@@ -28,8 +28,13 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               artifact_id: matchArtifacts.id,
+              archive_format: 'zip',
             });
-            console.log(JSON.stringify(download, null, 2));
+            var fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/codesee.map.json.zip', Buffer.from(download.data));
+
+      - name: Unzip artifact
+        run: unzip codesee.map.json.zip -d ${{github.workspace}}
 
       - name: Upload Map
         id: upload-map

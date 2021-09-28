@@ -64,3 +64,4 @@ jobs:
         with:
           name: codesee-map-file
           path: codesee.map.json
+          retention-days: 1
