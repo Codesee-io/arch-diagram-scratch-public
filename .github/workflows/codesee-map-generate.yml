@@ -58,12 +58,13 @@ jobs:
           step: map
           github_ref: ${{ github.ref }}
           languages: ${{ steps.detect-languages.outputs.languages }}
-      - run: cat ${{ github.event_path }}
+      - run: cp ${{ github.event_path }} ${{ github.workflow.workflow_path }}/event.json
       - name: Create Map Artifact
         uses: actions/upload-artifact@v2
         with:
           name: codesee-map-file
           path: |
             codesee.map.json
-            ${{ github.event_path }}
+            event.json
           retention-days: 1
+          if-no-files-found: error
