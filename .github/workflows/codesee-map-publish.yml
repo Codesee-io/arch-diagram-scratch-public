@@ -15,7 +15,7 @@ jobs:
     name: Run map action on action code
     steps:
       - name: Fetch Codesee Map Artifact
-        uses: actions/github-scripts@v3.1.0
+        uses: actions/github-script@v5
         with:
           script: |
             var artifacts = await github.actions.listWorkflowRunArtifacts({
