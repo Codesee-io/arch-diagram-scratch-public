@@ -1,0 +1,47 @@
+on:
+  workflow_run:
+    workflows: ["CodeSee Map Generate"]
+    types:
+      - completed
+
+name: CodeSee Map Upload and Insights
+
+jobs:
+  test_map_action:
+    runs-on: ubuntu-latest
+    if: >
+      ${{ github.event.worklow_run.event == 'pull_request' &&
+          github.event.workflow_run_conclusion == 'success' }}
+    name: Run map action on action code
+    steps:
+      - name: Fetch Codesee Map Artifact
+        uses: actions/github-scripts@v3.1.0
+        with:
+          script: |
+            var artifacts = await github.actions.listWorkflowRunArtifacts({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: ${{ github.event.workflow_run.id }},
+            });
+            var matchArtifact = artifacts.data.artifacts.find((artifact) => artifact.name === 'codesee-map-file')[0];
+            var download = await github.actions.downloadArtifact({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              artifact_id: matchArtifact.id,
+            });
+
+      - name: Upload Map
+        id: upload-map
+        uses: Codesee-io/codesee-map-action@latest
+        with:
+          step: mapUpload
+          api_token: ${{ secrets.CODESEE_ARCH_DIAG_API_TOKEN }}
+          github_ref: ${{ github.ref }}
+
+      - name: Insights
+        id: insights
+        uses: Codesee-io/codesee-map-action@latest
+        with:
+          step: insights
+          api_token: ${{ secrets.CODESEE_ARCH_DIAG_API_TOKEN }}
+          github_ref: ${{ github.ref }}
