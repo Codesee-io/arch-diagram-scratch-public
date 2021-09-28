@@ -64,5 +64,5 @@ jobs:
           name: codesee-map-file
           path: |
             codesee.map.json
-            ${{ GITHUB_EVENT_PATH }}
+            ${{ env.GITHUB_EVENT_PATH }}
           retention-days: 1
