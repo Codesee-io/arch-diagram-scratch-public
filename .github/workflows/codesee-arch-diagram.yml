@@ -57,7 +57,7 @@ jobs:
 
       - name: Generate Map
         id: generate-map
-        uses: Codesee-io/codesee-map-action@latest
+        uses: Codesee-io/codesee-map-action@1829-fix-pull-requests
         with:
           step: map
           github_ref: ${{ github.ref }}
