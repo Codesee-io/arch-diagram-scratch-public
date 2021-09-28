@@ -24,12 +24,12 @@ jobs:
               run_id: ${{ github.event.workflow_run.id }},
             });
             console.warn(JSON.stringify(artifacts, null, 2));
-            var matchArtifacts = artifacts.data.artifacts.find((artifact) => artifact.name === 'codesee-map-file').map((artifact) => artifact.id);
+            var matchArtifacts = artifacts.data.artifacts.find((artifact) => artifact.name === 'codesee-map-file');
             console.warn(JSON.stringify(matchArtifacts, null, 2));
             var download = await github.rest.actions.downloadArtifact({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              artifact_id: matchArtifacts[0],
+              artifact_id: matchArtifacts[0].id,
             });
 
       - name: Upload Map
