@@ -23,6 +23,7 @@ jobs:
               repo: context.repo.repo,
               run_id: ${{ github.event.workflow_run.id }},
             });
+            github.core.log(JSON.stringify(artifacts));
             var matchArtifact = artifacts.data.artifacts.find((artifact) => artifact.name === 'codesee-map-file')[0];
             var download = await github.rest.actions.downloadArtifact({
               owner: context.repo.owner,
