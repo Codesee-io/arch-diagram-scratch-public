@@ -43,18 +43,27 @@ jobs:
       - name: Unzip artifact
         run: unzip codesee.map.json.zip -d ${{github.workspace}}
 
+      - name: Set Event Name From Previous Run
+        run: |
+          PREVIOUS_EVENT_NAME=$(cat event_name.txt)
+          echo "PREVIOUS_EVENT_NAME=$PREVIOUS_EVENT_NAME" >> $GITHUB_ENV
+
       - name: Upload Map
         id: upload-map
-        uses: Codesee-io/codesee-map-action@latest
+        uses: Codesee-io/codesee-map-action@1829-fix-pull-requests
         with:
           step: mapUpload
           api_token: ${{ secrets.CODESEE_ARCH_DIAG_API_TOKEN }}
           github_ref: ${{ github.ref }}
+          with_event_data: event.json
+          with_event_name: ${{ env.PREVIOUS_EVENT_NAME }}
 
       - name: Insights
         id: insights
-        uses: Codesee-io/codesee-map-action@latest
+        uses: Codesee-io/codesee-map-action@1829-fix-pull-requests
         with:
           step: insights
           api_token: ${{ secrets.CODESEE_ARCH_DIAG_API_TOKEN }}
           github_ref: ${{ github.ref }}
+          with_event_data: event.json
+          with_event_name: ${{ env.PREVIOUS_EVENT_NAME }}

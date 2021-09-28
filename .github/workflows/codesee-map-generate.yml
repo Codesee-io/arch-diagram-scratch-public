@@ -58,7 +58,9 @@ jobs:
           step: map
           github_ref: ${{ github.ref }}
           languages: ${{ steps.detect-languages.outputs.languages }}
+
       - run: cp ${{ github.event_path }} ./event.json
+      - run: echo ${{ github.event_name }} > ./event_name.txt
       - name: Create Map Artifact
         uses: actions/upload-artifact@v2
         with:
@@ -66,5 +68,6 @@ jobs:
           path: |
             codesee.map.json
             event.json
+            event_name.txt
           retention-days: 1
           if-no-files-found: error
