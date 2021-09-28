@@ -62,6 +62,7 @@ jobs:
           step: map
           github_ref: ${{ github.ref }}
           languages: ${{ steps.detect-languages.outputs.languages }}
+          api_token: foo
 
       - name: Upload Map
         id: upload-map
