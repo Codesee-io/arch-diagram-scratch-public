@@ -58,12 +58,12 @@ jobs:
           step: map
           github_ref: ${{ github.ref }}
           languages: ${{ steps.detect-languages.outputs.languages }}
-      - run: cat ${{ env.GITHUB_EVENT_PATH }}
+      - run: cat ${{ github.event_path }}
       - name: Create Map Artifact
         uses: actions/upload-artifact@v2
         with:
           name: codesee-map-file
           path: |
             codesee.map.json
-            ${{ env.GITHUB_EVENT_PATH }}
+            ${{ github.event_path }}
           retention-days: 1
