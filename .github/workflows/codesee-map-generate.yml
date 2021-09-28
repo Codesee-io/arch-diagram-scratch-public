@@ -58,7 +58,7 @@ jobs:
           step: map
           github_ref: ${{ github.ref }}
           languages: ${{ steps.detect-languages.outputs.languages }}
-      - run: cat ${{ env.GITHUB_EVENTS_PATH }}
+      - run: cat ${{ env.GITHUB_EVENT_PATH }}
       - name: Create Map Artifact
         uses: actions/upload-artifact@v2
         with:
