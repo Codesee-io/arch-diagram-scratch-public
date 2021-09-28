@@ -1,6 +1,8 @@
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
 
 name: CodeSee Map Generate
 

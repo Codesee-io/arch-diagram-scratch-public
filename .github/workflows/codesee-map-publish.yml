@@ -10,7 +10,8 @@ jobs:
   test_map_action:
     runs-on: ubuntu-latest
     if: >
-      ${{ github.event.worklow_run.event == 'pull_request' &&
+      ${{ (github.event.worklow_run.event == 'pull_request' ||
+            github.event.worklow_run.event == 'push') &&
           github.event.workflow_run_conclusion == 'success' }}
     name: Run map action on action code
     steps:
