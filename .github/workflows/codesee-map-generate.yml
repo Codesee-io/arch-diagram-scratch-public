@@ -18,8 +18,7 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
 
-      - name: empty npmrc if exists
-        if: ${{ hashFiles(".npmrc") != ""}}
+      - name: empty npmrc
         run: cp /dev/null .npmrc
 
       # codesee-detect-languages has an output with id languages.
